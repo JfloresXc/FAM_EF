@@ -38,29 +38,37 @@
 							>Crear Productos</a
 						>
 					</li >
-					<li class="active">
+					<li class="">
 						<a href="{% url 'crearcursos' %}">Crear Cursos</a>
+					</li>
+					<li class="active">
+						<a href="{% url 'productos' %}">Ver Productos</a>
+					</li>
+					<li class="">
+						<a href="{% url 'cursos' %}">Ver Cursos</a>
 					</li>
 				</ul>
 			</nav>
-			{% if messages %} {% for message in messages %}
-			<div
-				class="m-3 alert alert-success alert-dismissible fade show"
-				role="alert"
-			>
-				<strong>{{ message }}</strong>
-				<button
-					type="button"
-					class="btn-close"
-					data-bs-dismiss="alert"
-					aria-label="Close"
-				></button>
+			<div class="wrap">
+				{% if messages %} {% for message in messages %}
+					<div
+						class="m-3 alert alert-success alert-dismissible fade show"
+						role="alert"
+					>
+						<strong>{{ message }}</strong>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="alert"
+							aria-label="Close"
+						></button>
+					</div>
+				{% endfor %} {% endif %}
+					<div class="content">
+						<div class="box">{% block content %}{% endblock %}</div>
+					</div>
+				</div>
 			</div>
-			{% endfor %} {% endif %}
-			<div class="content">
-				<div class="box">{% block content %}{% endblock %}</div>
-			</div>
-		</div>
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
 			integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"

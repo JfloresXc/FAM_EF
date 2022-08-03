@@ -115,8 +115,8 @@ nav ul li a:hover {
 
 /* CONTENT */
 .content {
-	max-width: 1200px;
-	width: 100%;
+	min-width: 800px;
+	margin: auto;
 	min-height: 100vh;
 	margin: auto;
 	background: white;

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import HttpResponseRedirect
-# from miapp.models import Course
+from miapp.models import Producto
 from django.contrib import messages
 
 # from .forms import CourseForm
@@ -31,27 +31,33 @@ def cursos(request):
 def formularioCurso(request):
     return render(request, 'curso-agregar.html')
 
-def agregarCurso(request):
+def crear_producto(request):
+    # RECIBE DATOS DEL FORMULARIO
     codigo = request.GET['codigo']
     nombre = request.GET['nombre']
-    horas = request.GET['horas']
-    creditos = request.GET['creditos']
+    precio_compra = request.GET['precio_compra']
+    precio_venta = request.GET['precio_venta']
+    fecha_compra = request.GET['fecha_compra']
     estado = request.GET['estado']
+    # CREAR OBJETO PRODUCTO
+    producto = Producto(
+        codigo = codigo,
+        nombre = nombre,
+        precio_venta = precio_venta,
+        precio_compra = precio_compra,
+        fecha_compra = fecha_compra,
+        estado = estado
+    )
+    # GUARDA OBJETO
+    producto.save()
+    # MUESTRA MENSAJE FLASH
+    messages.add_message(request, messages.SUCCESS, "Producto agregado con éxito")
 
-    # course = Course(
-    #     code = codigo,
-    #     name = nombre,
-    #     hour = horas,
-    #     credits = creditos,
-    #     state = estado
-    # )
-    # course.save()
-    messages.add_message(request, messages.SUCCESS, "Curso agregado con éxito")
+    return redirect('/crearproductos/')
 
-    return redirect('/agregarcurso/')
-
-def carreras(request):
-    return render(request, 'carreras.html')
+def productos(request):
+    productos = Producto.objects.raw('SELECT * FROM miapp_producto')
+    return render(request, 'productos.html', {'productos': productos})
 
 def agregarCarrera(request):
     return render(request, 'carrera-agregar.html')
